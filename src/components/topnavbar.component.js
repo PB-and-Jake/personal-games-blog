@@ -30,7 +30,7 @@ export default class TopNavbar extends Component{
                 </div>
             </nav>*/
             <Navbar expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Review Blog</Navbar.Brand>
+                <Navbar.Brand href="/">Review Blog</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">

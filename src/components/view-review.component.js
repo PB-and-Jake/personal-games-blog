@@ -50,6 +50,12 @@ export default class ViewReview extends Component{
         if(this.state.score%2>0){
             rows.push(<FontAwesomeIcon className="text-warning" icon={faStarHalfAlt}/>);
         }
+
+        var completedString = "Not Completed";
+        if(this.state.completed){
+            completedString = "Completed";
+        }
+
         return(
             <div>
                 <h2 className="mb-3">{this.state.title}</h2>
@@ -58,14 +64,21 @@ export default class ViewReview extends Component{
                         {rows}
                     </div>
                     <div className="row">
-                        {reviewDateStr} | {this.state.platform}
+                        {reviewDateStr} | {this.state.platform} | {completedString}
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-8">
                         <h5>REVIEW</h5>
-                        <div>
-                            {this.state.review}
+                        <div style={{whitespace:"pre-line"}}>
+                            {this.state.review.split('\n').map(function(item, key){
+                                return(
+                                    <span key={key}>
+                                        {item}
+                                        <br/>
+                                    </span>
+                                )
+                            })}
                         </div>
                     </div>
                     <div className="col-4">

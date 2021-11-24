@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import reviewFunctions from '../helpers/viewReviewFunctions'
 
-        
+
 const Review = props =>(
     <tr>
         <td>{props.review.title}</td>
@@ -59,7 +59,7 @@ export default class ReviewsList extends Component {
                 <table className="mainReviewsTable col-12 table table-dark table-striped table-bordered">
                     <thead className="thead-dark">
                         <tr>
-                            <th>Title</th>
+                            <th style={{width:"33%"}}>Title</th>
                             <th>Platform</th>
                             <th className="text-center">Score</th>
                             <th className="text-right">Date</th>

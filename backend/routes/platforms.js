@@ -25,7 +25,7 @@ router.route('/add').post((req, res)=>{
 
 router.route('/:id').get((req,res)=>{
     Platform.findById(req.params.id)
-        .tehn(review => res.json(review))
+        .then(review => res.json(review))
         .catch(err=> res.status().json('Error: '+err));
 });
 

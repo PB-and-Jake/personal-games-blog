@@ -3,12 +3,11 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import Switch from 'react-switch';
-import moment from 'moment';
-import { faMonument } from '@fortawesome/free-solid-svg-icons';
 
 export default class EditReview extends Component {
     constructor(props){
         super(props);
+        this.platformInput = React.createRef();
 
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangePlatform = this.onChangePlatform.bind(this);
@@ -17,6 +16,7 @@ export default class EditReview extends Component {
         this.onChangeScore = this.onChangeScore.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onChangeCompleted = this.onChangeCompleted.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             title:'',
@@ -36,7 +36,7 @@ export default class EditReview extends Component {
             .then(response=>{
                 this.setState({
                     title: response.data.title,
-                    platform:response.data.platform,
+                    platform: response.data.platform,
                     details: response.data.details,
                     review: response.data.review,
                     score: response.data.score,
@@ -76,39 +76,39 @@ export default class EditReview extends Component {
 
     onChangeTitle(e){
         this.setState({
-            title:e.target.title
+            title:e.target.value
         });
     }
     
     onChangePlatform(e){
         this.setState({
-            platform:e.target.platform
-        });
-    }
-    onChangeDetails(e){
-        this.setState({
-            details:e.target.details
+            platform:e.target.value
         });
     }
     onChangeReview(e){
         this.setState({
-            review:e.target.review
+            review:e.target.value
         });
+    }
+    onChangeDetails(e){
+        this.setState({
+            details:e.target.value
+        })
     }
     onChangeScore(e){
         this.setState({
-            score:e.target.score
+            score:e.target.value
         });
     }
-    onChangeDate(e){
+    onChangeDate(date){
         this.setState({
-            date:e.target.date
+            date:date
         });
     }
-    onChangeCompleted(e){
+    onChangeCompleted(completed){
         this.setState({
-            completed:!this.state.completed
-        });
+            completed
+        })
     }
 
     onSubmit(e){
@@ -117,17 +117,19 @@ export default class EditReview extends Component {
         const review = {
             title: this.state.title,
             platform:this.state.platform,
-            details: this.state.details,
             review: this.state.review,
+            details:this.state.details,
             score: this.state.score,
-            data: this.state.date,
+            date: this.state.date,
             completed: this.state.completed
-        }
-
-        console.log(review);
-
+        };
+        
+        console.log(this.state.details);
         axios.post('http://localhost:5000/reviews/update/'+this.props.match.params.id, review)
-            .then(res => console.log(res.data));
+            .then(res => console.log(res.data))
+            .catch(err=>{
+                console.log(err.response);
+            });
 
         window.location='/';
     }
@@ -144,7 +146,7 @@ export default class EditReview extends Component {
                     </div>
                     <div className="form-group">
                         <label>Platform</label>
-                        <select ref="platformInput" required className="form-control"
+                        <select ref={this.platformInput} required className="form-control"
                             value={this.state.platform} onChange={this.onChangePlatform}>
                                 {
                                     this.state.platforms.map(function(platform){
@@ -155,16 +157,16 @@ export default class EditReview extends Component {
                     </div>
                     <div className="form-group">
                         <label>Details </label>
-                        <textarea type="text" required class="form-control" style={{resize:"none"}}
+                        <textarea type="text" required rows="5" className="form-control" style={{resize:"none"}}
                             value={this.state.details} onChange={this.onChangeDetails}/>
                     </div>
                     <div className="form-group">
                         <label>Review </label>
-                        <textarea type="text" required class="form-control" style={{resize:"none"}}
+                        <textarea type="text" required rows="10" className="form-control" style={{resize:"none"}}
                             value={this.state.review} onChange={this.onChangeReview}/>
                     </div><div className="form-group">
                         <label>Score </label>
-                        <input type="text" class="form-control" required
+                        <input type="text" className="form-control" required
                             value={this.state.score} onChange={this.onChangeScore}/>
                     </div><div className="form-group">
                         <label>Date </label>
