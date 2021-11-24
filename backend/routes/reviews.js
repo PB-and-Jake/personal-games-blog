@@ -7,6 +7,12 @@ router.route('/').get((req, res)=>{
         .catch(err => res.status(400).json('Error: '+err));
 });
 
+router.route('/:platform').get((req, res)=>{
+    Review.find({"platform":req.params.platform})
+        .then(reviews => res.json(reviews))
+        .catch(err=> res.status(400).json('Error: '+err));
+})
+
 router.route('/add').post((req, res)=>{
     const title = req.body.title;
     const platform = req.body.platform;
@@ -50,8 +56,9 @@ router.route('/update/:id').post((req, res)=>{
 
             review.save()
                 .then(() => res.json('Review updated'))
-                .catch(err => res.status().json('Error: '+err));
+                .catch(err => res.status(400).json('Error: '+err));
         })
+        .catch(err=>res.status(400).json('Error: '+err));
 })
 
 module.exports = router;

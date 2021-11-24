@@ -8,8 +8,9 @@ const Platform = props =>(
         <td>{props.platform.company}</td>
         <td>{props.platform.abbreviation}</td>
         <td className="text-center">
-            <Link to={"/edit/"+props.platform._id}>Edit</Link>
-            <a href="#" onClick={()=>{props.deletePlatform(props.review._id)}}>Delete</a>
+            <Link to={"/viewPlatformDetails/"+props.platform._id}>Details</Link> | 
+            <Link to={"/editPlatform/"+props.platform._id}>Edit</Link> | 
+            <a href="#" onClick={()=>{props.deletePlatform(props.platform._id)}}>Delete</a>
         </td>
     </tr>
 )
@@ -55,10 +56,10 @@ export default class PlatformsList extends Component {
                 <table className="mainPlatformsTable col-12 table table-dark table-striped table-bordered">
                     <thead className="thead-dark">
                         <tr>
-                            <th>Name</th>
-                            <th>Company</th>
-                            <th>Abbreviation</th>
-                            <th className="text-center">Actions</th>
+                            <th style={{width:"40%"}}>Name</th>
+                            <th style={{width:"20%"}}>Company</th>
+                            <th style={{width:"20%"}}>Abbreviation</th>
+                            <th className="text-center" style={{width:"20%"}}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>

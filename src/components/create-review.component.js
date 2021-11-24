@@ -8,6 +8,8 @@ import Switch from 'react-switch';
 export default class CreateReview extends Component {
     constructor(props){
         super(props);
+        this.userInput = React.createRef();
+        this.platformInput = React.createRef();
 
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangePlatform = this.onChangePlatform.bind(this);
@@ -106,8 +108,7 @@ export default class CreateReview extends Component {
             date:this.state.date,
             completed:this.state.completed
         };
-
-        console.log(review);
+        
 
         axios.post('http://localhost:5000/reviews/add', review)
             .then(res=>console.log(res.data));
@@ -122,7 +123,7 @@ export default class CreateReview extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>
-                        <select ref="userInput" required 
+                        <select ref={this.userInput} required 
                             className="form-control" value={this.state.username} 
                             onChange={this.onChangeUsername}>
                                 {
@@ -142,7 +143,7 @@ export default class CreateReview extends Component {
                     </div>
                     <div className="form-group">
                         <label>Platform </label>
-                        <select ref="platformInput" required className="form-control"
+                        <select ref={this.platformInput} required className="form-control"
                             value={this.state.platform} onChange={this.onChangePlatform}>
                                 {
                                     this.state.platforms.map(function(platform){

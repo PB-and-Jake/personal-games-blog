@@ -11,6 +11,8 @@ import CreateUser from "./components/create-user.component";
 import PlatformsList from "./components/platforms-list.component";
 import CreatePlatform from './components/create-platform.component';
 import ViewReview from './components/view-review.component';
+import PlatformDetails from './components/platform-details.component';
+import EditPlatform from './components/edit-platform.component';
 
 function App() {
   var containerStyle={
@@ -29,6 +31,8 @@ function App() {
           <Route path="/platforms" component={PlatformsList}/>
           <Route path="/createPlatform" component={CreatePlatform}/>
           <Route path="/viewReview/:id" component={ViewReview}/>
+          <Route path="/viewPlatformDetails/:id" component={PlatformDetails}/>
+          <Route path="/editPlatform/:id" component={EditPlatform}/>
         </div>
     </Router>
   );

@@ -1,4 +1,4 @@
-import Ract, {Component, useReducer} from 'react';
+import React, {Component, useReducer} from 'react';
 import axios from 'axios';
 
 export default class EditPlatform extends Component{
@@ -8,6 +8,7 @@ export default class EditPlatform extends Component{
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeCompany = this.onChangeCompany.bind(this);
         this.onChangeAbbreviation = this.onChangeAbbreviation.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state ={
             name:'',
@@ -32,17 +33,17 @@ export default class EditPlatform extends Component{
 
     onChangeName(e){
         this.setState({
-            name:e.target.name
+            name:e.target.value
         })
     }
     onChangeCompany(e){
         this.setState({
-            company:e.target.company
+            company:e.target.value
         })
     }
     onChangeAbbreviation(e){
         this.setState({
-            abbreviation:e.target.abbreviation
+            abbreviation:e.target.value
         })
     }
 
@@ -60,7 +61,7 @@ export default class EditPlatform extends Component{
         axios.post('http://localhost:5000/platforms/update/'+this.props.match.params.id, platform)
             .then(res=> console.log(res.data));
 
-        window.location='/';
+        window.location='/platforms';
     }
 
     render(){
@@ -70,8 +71,7 @@ export default class EditPlatform extends Component{
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Name:</label>
-                        <input type="text" required className="form-control" 
-                                value={this.state.name} onChange={this.onChangeName}/>
+                        <input type="text" required className="form-control" value={this.state.name} onChange={this.onChangeName}/>
                     </div>
                     <div className="form-group">
                         <label>Company:</label>
